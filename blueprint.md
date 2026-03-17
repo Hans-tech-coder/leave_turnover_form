@@ -15,10 +15,14 @@ The Turnover App provides a modern, dark-themed Leave Turnover Form for employee
 - **Authentication & Authorization:** Implements Google-based OAuth via NextAuth (Auth.js). Access is restricted to verified members of the Skyrocket ClickUp workspace, verified during the sign-in callback.
 - **Route Protection:** Uses Next.js Middleware to automatically redirect unauthenticated users to the `/login` page when attempting to access the turnover form or any internal routes.
 - **Branded Login Page:** A custom login page styled with Skyrocket branding (logo, dark mode, typography) that provides a secure entry point for authorized members.
+- **Git Repository Synchronization:** Initialized local git repository and pushed the project to the [Hans-tech-coder/leave_turnover_form](https://github.com/Hans-tech-coder/leave_turnover_form) GitHub repository to ensure remote hosting and version control.
+
 
 ## Active Plan & Steps
 1. [DONE] Implement middleware for route protection and login redirects.
 2. [DONE] Configure NextAuth with Google Provider and ClickUp membership verification.
 3. [DONE] Create a branded login page at `/login`.
-4. Verify the full authentication flow (Redirect -> Login -> Callback -> Access).
-5. Ensure session persistence and handle edge cases (e.g., session expiration).
+4. [DONE] Initialize Git repository and push the project to the remote GitHub repository.
+5. [TODO] Final verification of the full application flow (Login -> Dashboard -> Submission).
+6. [TODO] Ensure all environment variables are properly documented for deployment (Firebase/ClickUp/Google).
+

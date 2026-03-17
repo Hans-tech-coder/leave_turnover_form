@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Skyrocket Turnover App",
-  description: "Internal turnover form for Skyrocket Agency",
+  title: "Leave Turnover Form",
+  description: "Internal leave turnover form for Skyrocket Studios PH, Inc.",
   icons: {
     icon: "/favicon.png",
   },
