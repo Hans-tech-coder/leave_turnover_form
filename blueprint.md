@@ -7,7 +7,7 @@ The Turnover App provides a modern, dark-themed Leave Turnover Form for employee
 - **Basic Information Collection:** Captures task name, vertical, leave type, start/end dates, and descriptions.
 - **Conditional Gemini Notes:** Dynamically shows a "Link to Gemini Notes" field when the selected vertical is Client Services, Project Management, Relationship Management, or CSO.
 - **Dynamic Client Turnovers:** Users can define a numerical count of clients, which dynamically renders the exact number of subtask components. Each component captures a subtask name, assignee, and description.
-- **Dark Mode UI:** Premium aesthetics built using Tailwind CSS dark classes (`bg-gray-900`, `bg-gray-800`, `border-gray-700`, neon accents, shadows).
+- **Dark Mode UI:** Premium aesthetics built using Tailwind CSS dark classes (`bg-gray-900`, `bg-gray-800`, border-gray-700, neon accents, shadows).
 - **ClickUp User Integration:** Replaces static select dropdowns for "Applicant" and "Lead Assignee" with Searchable Comboboxes powered by the ClickUp API `/team` endpoint. Searching is client-side, dynamic, and incorporates profile pictures. Loading states improve user experience while dependencies are fetched.
 - **ClickUp Task Creation:** Submit form to a new custom API route that dynamically resolves ClickUp list IDs per vertical, creates the Main Leave Turnover task containing standard information/Gemini link, and natively builds children subtasks automatically to track each documented client. 
 - **Subtask Assignee Resolution:** Extends the `SearchableCombobox` into iterating loop forms so each subtask tracks an explicit ClickUp Team user. It directly routes those IDs to construct native assignments inside the ClickUp tree seamlessly.
@@ -18,8 +18,6 @@ The Turnover App provides a modern, dark-themed Leave Turnover Form for employee
 - **Git Repository Synchronization:** Initialized local git repository and pushed the project to the [Hans-tech-coder/leave_turnover_form](https://github.com/Hans-tech-coder/leave_turnover_form) GitHub repository to ensure remote hosting and version control.
 - **Improved Field Guidance:** Added persistent guide text below the "Task Name" field for naming conventions ("Juan Dela Cruz - Oct 16, 2025") and visual indicators (asterisks) for required fields.
 
-
-
 ## Active Plan & Steps
 1. [DONE] Implement middleware for route protection and login redirects.
 2. [DONE] Configure NextAuth with Google Provider and ClickUp membership verification.
@@ -28,5 +26,8 @@ The Turnover App provides a modern, dark-themed Leave Turnover Form for employee
 5. [DONE] Final verification of the full application flow (Login -> Dashboard -> Submission).
 6. [DONE] Ensure all environment variables are properly documented for deployment (Firebase/ClickUp/Google).
 7. [DONE] Add guide text below "Task Name" field for better user guidance.
-
+8. [DONE] Fix data loss in client turnover fields when changing the client count.
+    - Update `handleClientCountChange` to preserve existing data using a functional state update.
+    - Convert subtask inputs (and main form inputs) to controlled components by adding `value` props.
+    - Verify that data is retained when increasing/decreasing the client count.
 

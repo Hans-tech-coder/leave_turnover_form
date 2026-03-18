@@ -198,12 +198,23 @@ export default function LeaveTurnoverForm() {
     const count = parseInt(e.target.value) || 0;
     setClientCount(count);
 
-    const newTurnovers = Array.from({ length: count }, () => ({
-      subtaskName: "",
-      subtaskAssignee: "",
-      subtaskDescription: "",
-    }));
-    setClientTurnovers(newTurnovers);
+    setClientTurnovers((prev) => {
+      const updated = [...prev];
+      if (count > updated.length) {
+        // Add new entries
+        const toAdd = count - updated.length;
+        const newEntries = Array.from({ length: toAdd }, () => ({
+          subtaskName: "",
+          subtaskAssignee: "",
+          subtaskDescription: "",
+        }));
+        return [...updated, ...newEntries];
+      } else if (count < updated.length) {
+        // Remove entries from the end
+        return updated.slice(0, count);
+      }
+      return updated;
+    });
   };
 
   const handleSubtaskChange = (index: number, field: string, value: string | number) => {
@@ -454,7 +465,14 @@ export default function LeaveTurnoverForm() {
                       <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
                         Enter [Your Name] - [Start date of leave]. For example: Juan Dela Cruz - Oct 16, 2025
                       </p>
-                      <input type="text" name="taskName" onChange={handleInputChange} className="w-full bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-custom p-2 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-purple dark:focus:ring-brand-gold outline-none transition-colors" required />
+                      <input 
+                        type="text" 
+                        name="taskName" 
+                        value={formData.taskName}
+                        onChange={handleInputChange} 
+                        className="w-full bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-custom p-2 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-purple dark:focus:ring-brand-gold outline-none transition-colors" 
+                        required 
+                      />
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -516,7 +534,14 @@ export default function LeaveTurnoverForm() {
                           </TooltipTrigger>
                           <TooltipContent><p>Link to the AI-generated turnover documentation.</p></TooltipContent>
                         </Tooltip>
-                        <input type="url" name="geminiNotesLink" onChange={handleInputChange} className="w-full bg-white dark:bg-gray-700 border border-blue-200 dark:border-gray-600 rounded p-2 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 outline-none transition-colors" required />
+                        <input 
+                          type="url" 
+                          name="geminiNotesLink" 
+                          value={formData.geminiNotesLink}
+                          onChange={handleInputChange} 
+                          className="w-full bg-white dark:bg-gray-700 border border-blue-200 dark:border-gray-600 rounded p-2 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 outline-none transition-colors" 
+                          required 
+                        />
                       </div>
                     )}
 
@@ -562,17 +587,35 @@ export default function LeaveTurnoverForm() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-200">Start Date</label>
-                        <input type="date" name="startDate" onChange={handleInputChange} className="w-full bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-custom p-2 text-gray-900 dark:text-gray-100 outline-none transition-colors dark:[color-scheme:dark]" />
+                        <input 
+                          type="date" 
+                          name="startDate" 
+                          value={formData.startDate}
+                          onChange={handleInputChange} 
+                          className="w-full bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-custom p-2 text-gray-900 dark:text-gray-100 outline-none transition-colors dark:[color-scheme:dark]" 
+                        />
                       </div>
                       <div>
                         <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-200">End Date</label>
-                        <input type="date" name="endDate" onChange={handleInputChange} className="w-full bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-custom p-2 text-gray-900 dark:text-gray-100 outline-none transition-colors dark:[color-scheme:dark]" />
+                        <input 
+                          type="date" 
+                          name="endDate" 
+                          value={formData.endDate}
+                          onChange={handleInputChange} 
+                          className="w-full bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-custom p-2 text-gray-900 dark:text-gray-100 outline-none transition-colors dark:[color-scheme:dark]" 
+                        />
                       </div>
                     </div>
 
                     <div>
                       <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-200">Task Description</label>
-                      <textarea name="taskDescription" onChange={handleInputChange} rows={3} className="w-full bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-custom p-2 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-purple dark:focus:ring-brand-gold outline-none transition-colors"></textarea>
+                      <textarea 
+                        name="taskDescription" 
+                        value={formData.taskDescription}
+                        onChange={handleInputChange} 
+                        rows={3} 
+                        className="w-full bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-custom p-2 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-purple dark:focus:ring-brand-gold outline-none transition-colors"
+                      ></textarea>
                     </div>
                   </div>
 
@@ -605,7 +648,13 @@ export default function LeaveTurnoverForm() {
                         <div className="space-y-4">
                           <div>
                             <label className="block text-sm mb-1 text-gray-700 dark:text-gray-200">Subtask Name</label>
-                            <input type="text" onChange={(e) => handleSubtaskChange(index, 'subtaskName', e.target.value)} className="w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-custom p-2 text-gray-900 dark:text-gray-100 outline-none focus:ring-2 focus:ring-brand-purple dark:focus:ring-brand-gold transition-colors shadow-sm" required />
+                            <input 
+                              type="text" 
+                              value={subtask.subtaskName}
+                              onChange={(e) => handleSubtaskChange(index, 'subtaskName', e.target.value)} 
+                              className="w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-custom p-2 text-gray-900 dark:text-gray-100 outline-none focus:ring-2 focus:ring-brand-purple dark:focus:ring-brand-gold transition-colors shadow-sm" 
+                              required 
+                            />
                           </div>
                           <div>
                             <label className="block text-sm mb-1 text-gray-700 dark:text-gray-200">Subtask Assignee</label>
@@ -620,7 +669,12 @@ export default function LeaveTurnoverForm() {
                           </div>
                           <div>
                             <label className="block text-sm mb-1 text-gray-700 dark:text-gray-200">Subtask Description</label>
-                            <textarea rows={2} onChange={(e) => handleSubtaskChange(index, 'subtaskDescription', e.target.value)} className="w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-custom p-2 text-gray-900 dark:text-gray-100 outline-none focus:ring-2 focus:ring-brand-purple dark:focus:ring-brand-gold transition-colors shadow-sm"></textarea>
+                            <textarea 
+                              rows={2} 
+                              value={subtask.subtaskDescription}
+                              onChange={(e) => handleSubtaskChange(index, 'subtaskDescription', e.target.value)} 
+                              className="w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-custom p-2 text-gray-900 dark:text-gray-100 outline-none focus:ring-2 focus:ring-brand-purple dark:focus:ring-brand-gold transition-colors shadow-sm"
+                            ></textarea>
                           </div>
                         </div>
                       </div>
