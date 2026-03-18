@@ -451,6 +451,9 @@ export default function LeaveTurnoverForm() {
                         </TooltipTrigger>
                         <TooltipContent><p>Provide a clear and concise name for this turnover.</p></TooltipContent>
                       </Tooltip>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
+                        Enter [Your Name] - [Start date of leave]. For example: Juan Dela Cruz - Oct 16, 2025
+                      </p>
                       <input type="text" name="taskName" onChange={handleInputChange} className="w-full bg-gray-50 dark:bg-gray-900/50 border border-gray-200 dark:border-gray-700 rounded-custom p-2 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-brand-purple dark:focus:ring-brand-gold outline-none transition-colors" required />
                     </div>
 

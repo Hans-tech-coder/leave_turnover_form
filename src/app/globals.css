@@ -7,7 +7,7 @@
   --foreground: #1c1e21;
   --card: #ffffff;
   --border: #e8eaed;
-  
+
   /* Skyrocket Brand Colors */
   --skyrocket-purple: #721c54;
   --skyrocket-purple-dark: #220e2c;
@@ -29,10 +29,10 @@
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-border: var(--border);
-  
+
   --color-brand-purple: var(--skyrocket-purple);
   --color-brand-gold: var(--skyrocket-gold);
-  
+
   --radius-custom: var(--radius);
 
   --font-sans: var(--font-geist-sans);
